@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #1e1e1e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Encabezado del chat */
+.header {
+  background-color: rgba(42, 47, 50, 0.8); /* Transparencia */
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(59, 74, 84, 0.7);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.header a {
+  color: #82e0ff;
+  text-decoration: none;
+}
+
+/* Contenedor del chat con fondo espacial */
+#chat-box {
+  flex: 1;
+  padding: 20px;
+  background-image: url('https://s1.1zoom.me/b5050/876/373381-sepik_1366x768.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto;
+  border-top: 1px solid rgba(59, 74, 84, 0.7);
+}
+
+#chat-box ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#chat-box li {
+  background: rgba(32, 44, 51, 0.7); /* Transparente */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  max-width: 70%; /* Limitar ancho de los mensajes */
+  word-wrap: break-word;
+  color: #fff;
+  border: 1px solid rgba(130, 224, 255, 0.5); /* Borde suave */
+}
+
+#chat-box li:nth-child(odd) {
+  background: rgba(42, 57, 66, 0.7); /* Otro tono transparente */
+}
+
+/* Pie de página del chat */
+.footer {
+  padding: 10px;
+  display: flex;
+  background-color: rgba(42, 47, 50, 0.8); /* Transparencia */
+  border-top: 1px solid rgba(59, 74, 84, 0.7);
+}
+
+.footer input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(59, 74, 84, 0.8);
+  color: white;
+  font-size: 14px;
+}
+
+.footer button {
+  padding: 8px 15px;
+  background-color: #82e0ff;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.footer input::placeholder {
+  color: #b1b3b5;
+}
+
+/* Asegura que los videos no ocupen toda la pantalla */
+#chat-box iframe {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid rgba(130, 224, 255, 0.5); /* Borde suave para los videos */
+}
+
+/* Ajuste de altura del iframe */
+#chat-box li iframe {
+  width: 560px; /* Establece un ancho fijo para el video */
+  height: 315px; /* Establece la altura estándar de un video en 16:9 */
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto; /* Centra el video horizontalmente */
+  border: 1px solid rgba(130, 224, 255, 0.5); /
+}

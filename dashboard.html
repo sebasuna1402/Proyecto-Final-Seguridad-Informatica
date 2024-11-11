@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Chat UNA</title>
+    <link rel="stylesheet" href="static/estilos.css">
+  </head>
+  <body>
+    
+    <div class="header">
+      <h2 id="welcome-message">Bienvenido al chat, <span id="username">Usuario</span>!</h2>
+      <a href="/logout">Salir</a>
+    </div>
+
+    <!-- Contenedor del chat -->
+    <div id="chat-box">
+      <ul id="messages"></ul>
+    </div>
+
+    
+    <div class="footer">
+      <input id="nombre" autocomplete="off" placeholder="Username"/>
+      <input id="m" autocomplete="off" placeholder="Escriba un mensaje..."/>
+      <button id="send">Send</button>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+
+        
+        $.get('/userinfo', function(data) {
+          $('#username').text(data.nombre);  
+          $('#nombre').val(data.nombre);     
+        });
+
+        
+        $('#send').click(function () {
+          var nombreTxt = $('#nombre').val() || "Anónimo";
+          var mensajeTxt = $('#m').val();
+
+          if (mensajeTxt.trim() !== "") {
+            var jsonMsg = { nombre: nombreTxt, mensaje: mensajeTxt, color: "#82e0ff" };
+            socket.emit('Evento-Mensaje-Server', JSON.stringify(jsonMsg));
+            $('#m').val('');
+          }
+        });
+
+        
+        socket.on('Evento-Mensaje-Server', function (msg) {
+          var msgJson = JSON.parse(msg);
+          var mensajeDisplay = `<b style='color:${msgJson.color}'>${msgJson.nombre}</b>: ${msgJson.mensaje}`;
+          $('#messages').append($('<li>').html(mensajeDisplay));
+          $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+        });
+      });
+    </script>
+  </body>
+</html>
