@@ -106,8 +106,8 @@ jobs:
      steps:
       - name: Install Nuclei
         run: |
-          curl -LO https://github.com/projectdiscovery/nuclei/releases/latest/download/nuclei-linux-amd64.zip
-          unzip nuclei-linux-amd64.zip
+          curl -LO https://github.com/projectdiscovery/nuclei/releases/download/v2.9.12/nuclei_2.9.12_linux_amd64.zip
+          unzip nuclei_2.9.12_linux_amd64.zip
           sudo mv nuclei /usr/local/bin/
           nuclei -version  # Verifica la instalación de Nuclei
 
