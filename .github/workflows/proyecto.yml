@@ -99,3 +99,19 @@ jobs:
       with:
         app-name: "proyecto-final"  
         images: "enriquemr171/proyecto-app:latest"
+
+  security_scan:
+     runs-on: ubuntu-latest
+     needs: deploy
+     steps:
+      - name: Install Nuclei
+        run: |
+          curl -LO https://github.com/projectdiscovery/nuclei/releases/latest/download/nuclei-linux-amd64.zip
+          unzip nuclei-linux-amd64.zip
+          sudo mv nuclei /usr/local/bin/
+          nuclei -version  # Verifica la instalación de Nuclei
+
+      - name: Run Nuclei scan
+        run: |
+          nuclei -u https://proyecto-final-exhqb7ehdhfffcgv.canadacentral-01.azurewebsites.net/ 
+    
