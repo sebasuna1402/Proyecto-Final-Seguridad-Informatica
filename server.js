@@ -1,9 +1,12 @@
+/* eslint-env node */
+/* eslint-disable no-trailing-spaces, quotes */
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const { auth, requiresAuth } = require('express-openid-connect');
 const socketio = require('socket.io');
 const path = require('path');
+
 
 const unaLib = require('./unalib/dashboard.js');
 
@@ -13,7 +16,7 @@ const io = socketio(server);
 const port = process.env.PORT || 3000;
 
 // Configuración Auth0 con variables de entorno
-const config = {
+const config ={
   authRequired: false, // No es obligatorio para la raíz
   auth0Logout: true, 
   secret: process.env.AUTH0_SECRET,
@@ -67,7 +70,7 @@ io.on('connection', (socket) => {
 });
 
 // Servir archivos estáticos (CSS, JS, imágenes)
-app.use("/static", express.static("static"));
+app.use('/static', express.static('static'));
 
 // Iniciar el servidor en el puerto definido
 server.listen(port, () => {

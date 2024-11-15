@@ -4,16 +4,15 @@ const sanitizeHtml = require('sanitize-html');
 module.exports = {
   // Valida si un número de teléfono es correcto
   is_valid_phone: function (phone) {
-    var isValid = false;
-    var re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/i;
+    let isValid = false;
+    const re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/i;
 
     try {
       isValid = re.test(phone);
     } catch (e) {
       console.log(e);
-    } finally {
-      return isValid;
     }
+    return isValid;
   },
 
   // Detecta si un mensaje es una URL de video o imagen y convierte URLs de YouTube
@@ -50,7 +49,7 @@ module.exports = {
       console.log("JSON inválido:", e);
       return sanitizeHtml(msg);
     }
-  
+
     if (this.is_valid_phone(obj.mensaje)) {
       console.log("Es un teléfono.");
       obj.mensaje = `<span class="phone">${sanitizeHtml(obj.mensaje)}</span>`;
@@ -71,10 +70,10 @@ module.exports = {
         obj.mensaje = sanitizeHtml(obj.mensaje);
       }
     }
-  
+
     return JSON.stringify({
-      nombre: sanitizeHtml(obj.nombre), 
-      mensaje: obj.mensaje, 
+      nombre: sanitizeHtml(obj.nombre),
+      mensaje: obj.mensaje,
       color: sanitizeHtml(obj.color)
     });
   }
