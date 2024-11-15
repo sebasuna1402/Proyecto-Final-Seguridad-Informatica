@@ -79,6 +79,17 @@ jobs:
       - name: Run ESLint
         run: npm run lint -- --fix
 
+      - name: Run ESLint and generate report
+        run: |
+          mkdir -p reports
+          npx eslint . -f json -o reports/eslint-report.json
+
+      - name: Upload ESLint Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint-report
+          path: reports/eslint-report.json
+
   # Job para construir la imagen Docker 
   docker:
     runs-on: ubuntu-latest
