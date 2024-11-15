@@ -57,10 +57,32 @@ jobs:
     - name: Run tests
       run: npm test
 
+  #Job Lint
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Grant execute permission for ESLint
+        run: chmod +x ./node_modules/.bin/eslint
+
+      - name: Run ESLint
+        run: npm run lint -- --fix
+
   # Job para construir la imagen Docker 
   docker:
     runs-on: ubuntu-latest
-    needs: test
+    needs: lint
 
     steps:
     - name: Checkout code
