@@ -135,5 +135,10 @@ jobs:
 
       - name: Run Nuclei scan
         run: |
-          nuclei -u https://proyecto-final-exhqb7ehdhfffcgv.canadacentral-01.azurewebsites.net/ 
+          nuclei -u https://proyecto-final-exhqb7ehdhfffcgv.canadacentral-01.azurewebsites.net/ -o nuclei_report.json -json
+      - name: Upload Nuclei Report
+        uses: actions/upload-artifact@v2
+        with:
+         name: nuclei-report
+         path: nuclei_report.json
     
