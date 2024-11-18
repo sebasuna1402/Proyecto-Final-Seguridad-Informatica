@@ -114,10 +114,45 @@ jobs:
     - name: Push Docker image
       run: docker push enriquemr171/proyecto-app:latest
 
+  docker_security_scan:
+    runs-on: ubuntu-latest
+    needs: docker
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Full vulnerability scan and generate JSON report
+        # Ejecuta el escaneo completo y genera el reporte JSON
+        run: |
+          docker run --rm \
+            -v $(pwd):/github/workspace \
+            aquasec/trivy:latest image \
+            --format json \
+            --output /github/workspace/trivy-full-report.json \
+            enriquemr171/proyecto-app:latest
+
+      - name: Upload Full Trivy JSON report
+        # Subir el reporte JSON como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: Trivy Full Report
+          path: trivy-full-report.json
+
+      - name: Display High and Critical vulnerabilities in console
+        # Mostrar vulnerabilidades altas y críticas en la consola
+        run: |
+          docker run --rm \
+            aquasec/trivy:latest image \
+            --severity HIGH,CRITICAL \
+            enriquemr171/proyecto-app:latest
+
   
   deploy:
     runs-on: ubuntu-latest
-    needs: docker
+    needs:
+        - docker
+        - docker_security_scan
 
     steps:
     
