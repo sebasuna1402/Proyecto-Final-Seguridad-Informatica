@@ -165,7 +165,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: "proyecto-final"  
+        app-name: "proyecto-final-SI"  
         images: "enriquemr171/proyecto-app:latest"
 
   security_scan:
