@@ -181,7 +181,7 @@ jobs:
 
       - name: Run Nuclei scan
         run: |
-          nuclei -u https://proyecto-final-exhqb7ehdhfffcgv.canadacentral-01.azurewebsites.net/ -o nuclei_report.txt
+          nuclei -u https://proyecto-final-si-afcrgvbsh5aegxaz.canadacentral-01.azurewebsites.net/ -o nuclei_report.txt
       - name: Upload Nuclei Report
         uses: actions/upload-artifact@v3
         with:
