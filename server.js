@@ -1,5 +1,4 @@
 /* eslint-env node */
-/* eslint-disable no-trailing-spaces, quotes */
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
@@ -18,7 +17,7 @@ const port = process.env.PORT || 3000;
 // Configuración Auth0 con variables de entorno
 const config ={
   authRequired: false, // No es obligatorio para la raíz
-  auth0Logout: true, 
+  auth0Logout: true,
   secret: process.env.AUTH0_SECRET,
   baseURL: process.env.AUTH0_BASE_URL,
   clientID: process.env.AUTH0_CLIENT_ID,
