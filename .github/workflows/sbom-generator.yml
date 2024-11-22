@@ -13,31 +13,27 @@ jobs:
     name: Generate or Update SBOM
     runs-on: ubuntu-latest
 
+    permissions: # Agrega esta sección
+      contents: write # Habilita permisos de escritura
+
     steps:
-    # Paso 1: Checkout del código
     - name: Checkout code
       uses: actions/checkout@v4
-
-    # Paso 2: Configurar Node.js
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }} # Asegura que el token esté configurado
+    
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '20.x'
         cache: 'npm'
 
-    # Paso 3: Instalar dependencias
-    - name: Install dependencies
-      run: npm ci
-
-    # Paso 4: Instalar CycloneDX CLI
     - name: Install CycloneDX CLI
       run: npm install -g @cyclonedx/bom
 
-    # Paso 5: Generar el SBOM
     - name: Generate SBOM
       run: npx cyclonedx-bom -o sbom.json
 
-    # Paso 6: Comprobar si hay cambios en el SBOM
     - name: Check for SBOM changes
       id: sbom-changes
       run: |
@@ -49,7 +45,6 @@ jobs:
           echo "changed=true" >> $GITHUB_ENV
         fi
 
-    # Paso 7: Commit y push de los cambios en el SBOM
     - name: Commit and Push SBOM
       if: env.changed == 'true'
       run: |
@@ -58,3 +53,4 @@ jobs:
         git add sbom.json
         git commit -m "chore: update SBOM"
         git push
+
